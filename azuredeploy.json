@@ -36,6 +36,12 @@
     "Password": {
       "type": "securestring"
     },
+    "existingVirtualNetworkName":{
+      "type": "string",
+      "metadata": {
+        "description": "your existing vnet name"
+      }
+    },
     "existingVnetLocation":
     {
       "type": "string",
@@ -71,12 +77,6 @@
       "type": "string",
       "metadata": {
         "description": "the resource group name that contains your existing vnet"
-      }
-    },
-    "existingVirtualNetworkName":{
-      "type": "string",
-      "metadata": {
-        "description": "your existing vnet name"
       }
     },
     "existingSubnetName": {
@@ -267,7 +267,7 @@
           "fileUris": [ "[variables('scriptURL')]"]
         },
         "protectedSettings": {
-          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File gatewayInstall.ps1 ', listAuthKeys(resourceId('Microsoft.DataFactory/dataFactories/gateways', parameters('existingDataFactoryName'), parameters('GatewayName'))).key1, ' ', reference(variables('nsgTemplateName')).outputs.hostname.Value, ' ', parameters('enableToSetDataStorePasswordsFromInternet'))]"
+          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File gatewayInstall.ps1 ', listAuthKeys(resourceId('Microsoft.DataFactory/dataFactories/gateways', parameters('existingDataFactoryName'), parameters('GatewayName')), '2015-10-01').key1, ' ', reference(variables('nsgTemplateName')).outputs.hostname.Value, ' ', parameters('enableToSetDataStorePasswordsFromInternet'))]"
         }
       }
     }
