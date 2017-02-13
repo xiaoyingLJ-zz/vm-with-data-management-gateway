@@ -22,3 +22,7 @@ This template will create an additional storage account for vm system image and 
 ```
 
 This template will create a gateway and help you make it workable in azure VM. The VM can join in an exsiting VNET.
+
+## Screenshot
+
+![Azure Custom Deployment](images/screencut.png)
