@@ -25,4 +25,4 @@ This template will create a gateway and help you make it workable in azure VM. T
 
 ## Screenshot
 
-![Azure Custom Deployment](images/screencut.png)
+![Azure Custom Deployment](images/screenshot.png)
