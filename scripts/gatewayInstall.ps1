@@ -99,16 +99,8 @@ function Download-Gateway([string] $url, [string] $gwPath)
     {
         $ErrorActionPreference = "Stop";
         $client = New-Object System.Net.WebClient
-        $gatewayInfo = $client.DownloadString($uri)
-        Trace-Log "Get gateway information successfully. $gatewayInfo"
-        $psobject = $gatewayInfo | ConvertFrom-Json
-        $downloadPath = $psobject | select -ExpandProperty "gatewayBitsLink"
-        Trace-Log "Gateway download path: $downloadPath"
-        $hashValue = $psobject | select -ExpandProperty "gatewayBitHash"
-        Trace-Log "Expected gateway bit hash value: $hashValue"
-        $client.DownloadFile($downloadPath, $gwPath)
+        $client.DownloadFile($url, $gwPath)
         Trace-Log "Download gateway successfully. Gateway loc: $gwPath"
-        return $hashValue
     }
     catch
     {
@@ -116,29 +108,9 @@ function Download-Gateway([string] $url, [string] $gwPath)
         Trace-Log $_.Exception.ToString()
         throw
     }
-    return
 }
 
-function Verify-Signature([string] $gwPath, [string] $hashValue)
-{
-    Trace-Log "Begin to verify gateway signature."
-    if ([string]::IsNullOrEmpty($gwPath))
-    {
-		Throw-Error "Gateway path is not specified"
-    }
-
-	if (!(Test-Path -Path $gwPath))
-	{
-		Throw-Error "Invalid gateway path: $gwPath"
-	}
-    $hasher = [System.Security.Cryptography.SHA256CryptoServiceProvider]::Create()
-    $content = [System.IO.File]::OpenRead($gwPath)
-    $hash = [System.Convert]::ToBase64String($hasher.ComputeHash($content))
-    Trace-Log "Real gateway hash value: $hash"
-    return ($hash -eq $hashValue)
-}
-
-function Install-Gateway([string] $gwPath, [string] $hashValue)
+function Install-Gateway([string] $gwPath)
 {
 	if ([string]::IsNullOrEmpty($gwPath))
     {
@@ -149,11 +121,6 @@ function Install-Gateway([string] $gwPath, [string] $hashValue)
 	{
 		Throw-Error "Invalid gateway path: $gwPath"
 	}
-    
-    if(!(Verify-Signature $gwPath $hashValue))
-    {
-        Throw-Error "invalid gateway msi"
-    }
 	
 	Trace-Log "Start Gateway installation"
 	Run-Process "msiexec.exe" "/i gateway.msi /quiet /passive"		
@@ -211,14 +178,14 @@ function Set-ExternalHostName([string] $keyValue)
 
 
 Trace-Log "Log file: $logLoc"
-$uri = "https://wu.configuration.dataproxy.clouddatahub.net/GatewayClient/GatewayBits?version={0}&language={1}&platform={2}" -f "latest","en-US","x64"
+$uri = "https://go.microsoft.com/fwlink/?linkid=839822"
 Trace-Log "Configuration service url: $uri"
 $gwPath= "$PWD\gateway.msi"
 Trace-Log "Gateway download location: $gwPath"
 
 
-$hashValue = Download-Gateway $uri $gwPath
-Install-Gateway $gwPath $hashValue
+Download-Gateway $uri $gwPath
+Install-Gateway $gwPath
 if($openPort -eq 'yes')
 {
 	Set-ExternalHostName $vmdnsname

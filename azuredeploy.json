@@ -5,7 +5,7 @@
     "existingDataFactoryName": {
       "type":"string"
     },
-    "newGatewayName": {
+    "GatewayName": {
       "type": "string"
     },
     "virtualMachineName": {
@@ -95,7 +95,7 @@
     }
   },
   "variables": {
-    "baseUri": "https://raw.githubusercontent.com/xiaoyingLJ/quick-create-vm-with-new-gateway/master/",
+    "baseUri": "https://raw.githubusercontent.com/xiaoyingLJ/vm-with-data-management-gateway/master/",
     "nsglink": "[concat(variables('baseUri'), 'nested/', parameters('enableToSetDataStorePasswordsFromInternet'),'IncomingRemote.json')]",
     "nsgTemplateName": "[concat(parameters('virtualMachineName'), 'NSGTemplate')]",
     "prefix": "[split(parameters('virtualMachineName'), '-')[0]]",
@@ -109,7 +109,7 @@
     {
       "type": "Microsoft.DataFactory/dataFactories/gateways",
       "apiVersion": "2015-10-01",
-      "name": "[concat(parameters('existingDataFactoryName'), '/', parameters('newGatewayName'))]",
+      "name": "[concat(parameters('existingDataFactoryName'), '/', parameters('GatewayName'))]",
       "properties": {
         "description": "my gateway"
       }
@@ -120,7 +120,7 @@
       "apiVersion": "2016-01-01",
       "location": "[parameters('existingVnetLocation')]",
       "dependsOn": [
-        "[resourceId('Microsoft.DataFactory/dataFactories/gateways', parameters('existingDataFactoryName'), parameters('newGatewayName'))]"
+        "[resourceId('Microsoft.DataFactory/dataFactories/gateways', parameters('existingDataFactoryName'), parameters('GatewayName'))]"
       ],
       "tags": {
             "vmname": "[parameters('virtualMachineName')]"
@@ -229,7 +229,7 @@
       "name": "[variables('nsgTemplateName')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
-        "[resourceId('Microsoft.DataFactory/dataFactories/gateways', parameters('existingDataFactoryName'), parameters('newGatewayName'))]"
+        "[resourceId('Microsoft.DataFactory/dataFactories/gateways', parameters('existingDataFactoryName'), parameters('GatewayName'))]"
       ],
       "properties": {
         "mode": "incremental",
@@ -267,7 +267,7 @@
           "fileUris": [ "[variables('scriptURL')]"]
         },
         "protectedSettings": {
-          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File gatewayInstall.ps1 ', reference(resourceId('Microsoft.DataFactory/dataFactories/gateways', parameters('existingDataFactoryName'), parameters('newGatewayName'))).key, ' ', reference(variables('nsgTemplateName')).outputs.hostname.Value, ' ', parameters('enableToSetDataStorePasswordsFromInternet'))]"
+          "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File gatewayInstall.ps1 ', listAuthKeys(resourceId('Microsoft.DataFactory/dataFactories/gateways', parameters('existingDataFactoryName'), parameters('GatewayName'))).key1, ' ', reference(variables('nsgTemplateName')).outputs.hostname.Value, ' ', parameters('enableToSetDataStorePasswordsFromInternet'))]"
         }
       }
     }
