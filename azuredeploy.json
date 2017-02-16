@@ -74,7 +74,10 @@
         "Germany Northeast",
         "UK South",
         "UK West"
-      ]
+      ],
+      "metadata": {
+        "description": "your virtual machine will be create in the same datacenter with VNET"
+      }
     },
     "existingVirtualNetworkNameResourceGroup":{
       "type": "string",
