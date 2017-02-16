@@ -102,7 +102,7 @@
     "nsglink": "[concat(variables('baseUri'), 'nested/', parameters('enableToSetDataStorePasswordsFromInternet'),'IncomingRemote.json')]",
     "nsgTemplateName": "[concat(parameters('virtualMachineName'), 'NSGTemplate')]",
     "prefix": "[split(parameters('virtualMachineName'), '-')[0]]",
-    "storageAccountName": "[take(concat(toLower(variables('prefix')), uniquestring(resourceGroup().id)), 24)]",
+    "storageAccountName": "[take(concat(toLower(variables('prefix')), uniquestring(resourceGroup().id, parameters('virtualMachineName'))), 24)]",
     "nicName": "[concat(parameters('virtualMachineName'), 'Nic')]",
     "publicIPAddressName": "[concat(parameters('virtualMachineName'), '-ip')]",
     "networkSecurityGroupName": "[concat(parameters('virtualMachineName'), 'nsg')]",
