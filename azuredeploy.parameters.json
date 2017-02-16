@@ -2,8 +2,17 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "Name": {
-        "value": "vmName"
+    "existingDataFactoryName": {
+      "value":"your existing data factory name"
+    },
+    "GatewayName": {
+      "value": "your new gateway name"
+    },
+    "virtualMachineName": {
+      "value": "virtual machine name"
+    },        
+    "Size": {
+        "value": "VM size"
     },
     "userName": {
       "value": "GEN-USER"
@@ -11,11 +20,21 @@
     "Password": {
       "value": "GEN-PASSWORD"
     },
-    "dnsLabelPrefix": {
-      "value": "GEN-UNIQUE"
+    "existingVirtualNetworkName":{
+      "value": "your existing vnet name"
     },
-    "gatewayAuthenticationKey": {
-        "value": "your gateway authentication key"
+    "existingVnetLocation":
+    {
+      "value": "your vnet datacenter"
+    },
+    "existingVirtualNetworkNameResourceGroup":{
+      "value": "your exiting vnet resource group name"
+    },
+    "existingSubnetName": {
+      "value": "your subnet name"
+    },
+    "enableToSetDataStorePasswordsFromInternet": {
+      "value": "yes"
     }
   }
 }
