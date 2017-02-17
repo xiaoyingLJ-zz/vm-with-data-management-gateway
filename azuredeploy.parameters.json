@@ -21,17 +21,17 @@
       "value": "GEN-PASSWORD"
     },
     "existingVirtualNetworkName":{
-      "value": "your existing vnet name"
+      "value": "your vnet name"
     },
     "existingVnetLocation":
     {
       "value": "your vnet datacenter"
     },
-    "existingVirtualNetworkNameResourceGroup":{
-      "value": "your exiting vnet resource group name"
+    "vnetResourceGroup":{
+      "value": "the resource group name contains your vnet"
     },
-    "existingSubnetName": {
-      "value": "your subnet name"
+    "subnetInYourVnet": {
+      "value": "your subnet name in vnet"
     },
     "enableToSetDataStorePasswordsFromInternet": {
       "value": "yes"

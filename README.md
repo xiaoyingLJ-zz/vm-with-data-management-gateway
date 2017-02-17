@@ -29,6 +29,6 @@ NOTE
 This template must be created in the same resource group with data factory.
 ```
 
-## Screenshot
+## Sample
 
 ![Azure Custom Deployment](images/screenshot.png)
