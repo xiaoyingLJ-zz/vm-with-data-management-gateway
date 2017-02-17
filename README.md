@@ -1,5 +1,10 @@
 # Create a gateway and make it workable in azure VM
 
+Before deploying the template you must have the following
+
+1. **Data Factory.** The gateway is created in the data factory. If you don't have a data factory,  see the [Create data factory](https://docs.microsoft.com/en-us/azure/data-factory/data-factory-move-data-between-onprem-and-cloud#create-data-factory) for steps to create one.
+2. **Virtual Network.** The virtual machine will join this VNET. If you don't have one, use this tutorial, see [Create virtual network](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-create-vnet-arm-pportal#create-a-virtual-network) to create one.
+
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FxiaoyingLJ%2Fvm-with-data-management-gateway%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
@@ -7,21 +12,22 @@
     <img src="http://armviz.io/visualizebutton.png"/>
 </a>
 
-## Prerequisites
+When you deploy this Azure Resource Template, you will create a logical gateway in your data factory and the following resources
+- Azure Virtual Machine 
+- Azure Storage (for VM system image and boot diagnostic)
+- Public IP Address
+- Network Interface
+- Network Sercurity Group
 
-- Name of existing data factory.
-- Name of the Resource Group that the data factory resides in(This template must be in this resource group)
-- Name of the existing VNET and subnet you want to connect the new virtual machine to.
-- Name of the Resource Group that the VNET resides in.
-- Region of the VNET(VM will be created in the same region with VNET)
+This template can help you create a gateway and make it workable in azure VM. The VM can join in an exsiting VNET. You will see the new gateway is online after successful deployment.
+
+![](images/online.png)
 
 ```
 NOTE
 
-This template will create an additional storage account for vm system image and boot diagnostic.To avoid to running into storage account limits, it's best to delete the storage account when the VM is deleted
+This template must be created in the same resource group with data factory.
 ```
-
-This template will create a gateway and help you make it workable in azure VM. The VM can join in an exsiting VNET.
 
 ## Screenshot
 
