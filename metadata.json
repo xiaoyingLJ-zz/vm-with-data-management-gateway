@@ -1,7 +1,7 @@
 {
-  "itemDisplayName": "quick create gateway VM",
+  "itemDisplayName": "create a data management gateway and install in azure VM",
   "description": "This template deploys a virtual machine and creates a workable data management gateway",
   "summary": "Install and register gateway on an windows virtual machine using custom script extension",
   "githubUsername": "xiaoyingLJ",
-  "dateUpdated": "2016-07-25"
+  "dateUpdated": "2017-02-21"
 }

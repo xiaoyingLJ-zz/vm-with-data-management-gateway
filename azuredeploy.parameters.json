@@ -3,16 +3,16 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "existingDataFactoryName": {
-      "value":"your existing data factory name"
+      "value":"existingDF"
     },
     "GatewayName": {
-      "value": "your new gateway name"
+      "value": "newgateway"
     },
     "virtualMachineName": {
-      "value": "virtual machine name"
+      "value": "gateway-vm"
     },        
     "Size": {
-        "value": "VM size"
+        "value": "Standard_DS3_v2"
     },
     "userName": {
       "value": "GEN-USER"
@@ -21,17 +21,17 @@
       "value": "GEN-PASSWORD"
     },
     "existingVirtualNetworkName":{
-      "value": "your vnet name"
+      "value": "gwvnet"
     },
     "existingVnetLocation":
     {
-      "value": "your vnet datacenter"
+      "value": "West US"
     },
-    "vnetResourceGroup":{
-      "value": "the resource group name contains your vnet"
+    "existingVNetResourceGroupName":{
+      "value": "gwvnetrg"
     },
-    "subnetInYourVnet": {
-      "value": "your subnet name in vnet"
+    "existingSubnetInYourVnet": {
+      "value": "subnet"
     },
     "enableToSetDataStorePasswordsFromInternet": {
       "value": "yes"
